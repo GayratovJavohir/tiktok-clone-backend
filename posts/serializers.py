@@ -120,7 +120,12 @@ class PostSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        author = validated_data.pop("author_id")
+        request = self.context.get("request")
+        author = validated_data.pop("author_id", None)
+
+        if author is None and request and request.user.is_authenticated:
+            author = request.user
+
         return Post.objects.create(author=author, **validated_data)
     
     
