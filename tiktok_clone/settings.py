@@ -81,8 +81,9 @@ TEMPLATES = [
     },
 ]
 
-# ASGI / Channels
+
 ASGI_APPLICATION = "tiktok_clone.asgi.application"
+WSGI_APPLICATION = "tiktok_clone.wsgi.application"
 
 CHANNEL_LAYERS = {
     "default": {
