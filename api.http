@@ -1,0 +1,234 @@
+### BASE URL
+@host = http://localhost:8000
+
+### TOKENS (example)
+@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxODAyODUyMjYzLCJpYXQiOjE3NzE3NDgyNjMsImp0aSI6IjljNzQ5OGE2NzUxZDRlZmRhOTU0OTExZWMzZjY5Y2M1IiwidXNlcl9pZCI6IjIifQ.E9rBb3VWWLLjX-vVKLc26WHx9jRdb2nqb13SpCexssw
+
+@varvar_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzk1NDQzODY0LCJpYXQiOjE3NjQzMzk4NjQsImp0aSI6Ijc2OGE2YTYzMGMxZTRkNjBiZjVkZTQwYmViMDM2M2YxIiwidXNlcl9pZCI6IjUifQ.JRwgPVUKz4sMExbPrkYrEwrfAGTPQ4dys4codl4QoS4
+
+@refresh_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5NTQ0Mzg2NCwiaWF0IjoxNzY0MzM5ODY0LCJqdGkiOiJkMDhiNGJkNjFkMjI0YjYwOWVkMGJlMmI2YjQwYmY5ZiIsInVzZXJfaWQiOiI1In0.F_c0ATOqmORpZ96ND-4kkyaKlYn70KFQqTaxY0ry2ws
+
+
+
+### USER LOGIN
+POST {{host}}/users/login/
+Content-Type: application/json
+
+{
+  "username": "jk",
+  "password": "Lorem2002"
+}
+
+`
+### USER REGISTER
+POST {{host}}/users/register/
+Content-Type: application/json
+
+{
+  "username": "sarvar",
+  "first_name": "Sarvar",
+  "last_name": "Rozmetov",
+  "email": "javohirgayratov002@gmail.com",
+  "password": "Lorem2000"
+}
+
+### USER LIST
+GET {{host}}/users/users/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+
+### Search users
+GET {{host}}/users/users/?search=jk
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+
+### USER LOGOUT
+POST {{host}}/users/logout/
+Authorization: Bearer {{varvar_token}}
+Content-Type: application/json
+
+{
+  "refresh": "{{refresh_token}}"
+}
+
+### USER PROFILE 
+GET {{ host }}/users/profile/
+Authorization: Bearer {{ access_token }}
+Content-Type: application/json
+
+
+### ANOTHER PROFILE 
+GET {{ host }}/users/another-profile/2/
+Authorization: Bearer {{ varvar_token }} 
+Content-Type: application/json
+
+
+### CREATE MUSIC
+POST {{host}}/posts/musics/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "music_name": "This is a new music",
+  "music_file": "media/posts/images/main.txt",
+  "author": 3
+}
+
+
+### CREATE POST
+POST {{host}}/posts/posts/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "title": "This is a new post",
+  "image": "media/posts/images/star.jpeg",
+  "caption": "There is a lot of things to do",
+  "author_id": 2
+}
+
+
+### CREATE STORY
+POST {{host}}/posts/stories/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "image": "media/posts/images/star.jpeg",
+  "author_id": 2
+}
+
+
+### GET STORY
+GET {{host}}/posts/stories/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+
+
+### Like POST
+POST {{host}}/posts/posts/10/like_toggle/
+Authorization: Bearer {{access_token}}
+
+
+
+### Save POST
+POST {{host}}/posts/posts/10/save_toggle/
+Authorization: Bearer {{access_token}}
+
+
+
+### CREATE COMMENT
+POST {{host}}/posts/comments/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "text": "hi",
+  "post": 10
+}
+
+### GET COMMENTS
+GET {{host}}/posts/comments/
+Content-Type: application/json
+
+
+
+### COMMENT LIKE  
+POST {{host}}/posts/comments/1/like_toggle/
+Authorization: Bearer {{access_token}}
+
+
+### REPLY COMMENT LIKE
+POST {{host}}/posts/reply_comments/8/like_toggle/
+Authorization: Bearer {{access_token}}
+
+
+### REPLY COMMENTS
+GET {{ host }}/posts/reply_comments/
+Authorization: Bearer {{ access_token }}
+
+
+
+### CREATE REPLY COMMENT 
+POST {{host}}/posts/reply_comments/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "text": "unday emas",
+  "parent_comment": 2
+}
+
+
+### CREATE REPLY TO REPLY
+POST {{host}}/posts/reply_comments/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "text": "replyga reply",
+  "parent_reply": 1
+}
+
+
+### GET POSTS
+GET {{host}}/posts/posts/
+Content-Type: application/json
+
+
+### POST Follow
+POST {{host}}/users/follow/2/
+Authorization: Bearer {{varvar_token}}
+
+
+### DELETE Follow
+DELETE {{host}}/users/follow/2/
+Authorization: Bearer {{varvar_token}}
+
+
+### GET Following POSTS
+GET {{host}}/posts/following/
+Authorization: Bearer {{ access_token }}
+
+
+### GET Friends POSTS
+GET {{host}}/posts/friends/
+Authorization: Bearer {{ access_token }}
+
+
+### GET Saved POSTS
+GET {{host}}/posts/posts/?saved=true/
+Authorization: Bearer {{ access_token }}
+
+
+### GET Reposts POSTS
+GET {{host}}/posts/posts/?reposts=true/
+Authorization: Bearer {{ access_token }}
+
+
+### POST Repost
+POST {{host}}/posts/posts/6/repost_toggle/
+Authorization: Bearer {{access_token}}
+
+
+### GET ROOMS
+GET {{host}}/chat/rooms/
+Authorization: Bearer {{access_token}}
+
+
+### GET MESSAGES
+GET {{host}}/chat/messages/50/
+Authorization: Bearer {{access_token}}
+
+### CREATE ROOM
+POST {{host}}/chat/rooms/create/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "participant_ids": [6],
+  "room_type": "direct"
+}
